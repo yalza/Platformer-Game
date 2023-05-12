@@ -1,0 +1,5 @@
+
+The data in the "Assets for Unity" folder is for use in game development on Unity.
+It is the same file name as ogg for RPG Maker, but please be careful not to overwrite it because its contents are different.
+
+
