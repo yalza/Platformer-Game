@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2406557757082285107}
   - component: {fileID: 6451113810077863276}
   - component: {fileID: 3361131973751929757}
+  - component: {fileID: 1796270547}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -156,7 +157,19 @@ MonoBehaviour:
     m_ActionId: df88e742-15c7-4f34-8dd4-34bb448e81de
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2406557757082285107}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 8f5293cf-02de-49bb-a41c-6ddc83284227
     m_ActionName: Player/Attack[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -284,3 +297,32 @@ CapsuleCollider2D:
   m_Offset: {x: 0.043869436, y: -0.18011266}
   m_Size: {x: 0.8262435, y: 1.8006407}
   m_Direction: 0
+--- !u!114 &1796270547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3746866979754723553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bef156784aff7f48bd3354a64c4f200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  castFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  groundDistance: 0.5
+  wallDistance: 0.05
+  ceilingDistance: 0.05

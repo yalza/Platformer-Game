@@ -14,19 +14,23 @@ public class PlayerController : MonoBehaviour
     {
         get
         {
-            if (IsMoving && !touchingDirections.IsOnWall)
+            if (CanMove)
             {
-                Debug.Log(touchingDirections.IsGrounded);
-                if (touchingDirections.IsGrounded)
+                if (IsMoving && !touchingDirections.IsOnWall)
                 {
-                    
-                    if (IsRunning) return _runSpeed;
-                    else return _walkSpeed;
+                    Debug.Log(touchingDirections.IsGrounded);
+                    if (touchingDirections.IsGrounded)
+                    {
+
+                        if (IsRunning) return _runSpeed;
+                        else return _walkSpeed;
+                    }
+                    else
+                    {
+                        return _airSpeed;
+                    }
                 }
-                else
-                {
-                    return _airSpeed;
-                }
+                else return 0;
             }
             else return 0;
         }
@@ -78,6 +82,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public bool CanMove
+    {
+        get
+        {
+            return animator.GetBool(CONSTANT.canMove);
+        }
+    }
 
     private Vector2 _moveInput;
     Rigidbody2D rb;
@@ -139,10 +150,18 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if(context.started)
+        if(context.started && touchingDirections.IsGrounded && CanMove)
         {
             animator.SetTrigger(CONSTANT.jump);
             rb.velocity = new Vector2(rb.velocity.x, jumpImpulse);
+        }
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            animator.SetTrigger(CONSTANT.attack);
         }
     }
 }
