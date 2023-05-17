@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (IsMoving && !touchingDirections.IsOnWall)
                 {
-                    Debug.Log(touchingDirections.IsGrounded);
+                
                     if (touchingDirections.IsGrounded)
                     {
 

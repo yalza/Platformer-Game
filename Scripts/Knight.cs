@@ -49,11 +49,18 @@ public class Knight : MonoBehaviour
         {
             FlipDirection();
         }
-        rb.velocity = new Vector2(wallSpeed * Vector2.right.x,rb.velocity.y);
+        rb.velocity = new Vector2(wallSpeed * _walkDirectionVector.x,rb.velocity.y);
     }
 
     private void FlipDirection()
     {
-        throw new NotImplementedException();
+        if(WalkDirection == WalkableDirection.Left)
+        {
+            WalkDirection = WalkableDirection.Right;
+        }
+        else if(WalkDirection == WalkableDirection.Right)
+        {
+            WalkDirection = WalkableDirection.Left;
+        }
     }
 }
