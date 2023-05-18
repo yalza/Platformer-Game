@@ -5,20 +5,23 @@ using UnityEngine;
 
 public class Knight : MonoBehaviour
 {
-    public float wallSpeed = 3f;
-    private Vector2 _walkDirectionVector;
+    [SerializeField] float walkSpeed = 3f;
+    private Vector2 _walkDirectionVector = Vector2.right;
+
+    public DetectionZone attackZone;
 
     Rigidbody2D rb;
     TouchingDirections touchingDirections;
+    Animator animator;
 
-    public enum WalkableDirection { Right,Left }
+    public enum WalkableDirection { Right, Left }
     private WalkableDirection _walkableDirection;
     public WalkableDirection WalkDirection
     {
         get { return _walkableDirection; }
         set
         {
-            if(_walkableDirection != value)
+            if (_walkableDirection != value)
             {
 
                 gameObject.transform.localScale *= new Vector2(-1, 1);
@@ -26,7 +29,7 @@ public class Knight : MonoBehaviour
                 {
                     _walkDirectionVector = Vector2.right;
                 }
-                else if(value == WalkableDirection.Left)
+                else if (value == WalkableDirection.Left)
                 {
                     _walkDirectionVector = Vector2.left;
                 }
@@ -37,10 +40,37 @@ public class Knight : MonoBehaviour
         }
     }
 
+    private bool _hasTarget = false;
+    public bool HasTarget
+    {
+        get
+        {
+            return _hasTarget;
+        }
+        private set
+        {
+            _hasTarget = value;
+            animator.SetBool(CONSTANT.hasTarget, value);
+        }
+    }
+
+    public bool CanMove
+    {
+        get
+        {
+            return animator.GetBool(CONSTANT.canMove);
+        }
+    }
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         touchingDirections = GetComponent<TouchingDirections>();
+        animator = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        HasTarget = attackZone.detectionColliders.Count > 0;
     }
 
     private void FixedUpdate()
@@ -49,7 +79,15 @@ public class Knight : MonoBehaviour
         {
             FlipDirection();
         }
-        rb.velocity = new Vector2(wallSpeed * _walkDirectionVector.x,rb.velocity.y);
+        if(CanMove)
+        {
+            rb.velocity = new Vector2(walkSpeed * _walkDirectionVector.x, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(0,rb.velocity.y);
+        }
+     
     }
 
     private void FlipDirection()
