@@ -13,6 +13,7 @@ public class Knight : MonoBehaviour
     Rigidbody2D rb;
     TouchingDirections touchingDirections;
     Animator animator;
+    Damageable damageable;
 
     public enum WalkableDirection { Right, Left }
     private WalkableDirection _walkableDirection;
@@ -66,12 +67,13 @@ public class Knight : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         touchingDirections = GetComponent<TouchingDirections>();
         animator = GetComponent<Animator>();
+        damageable = GetComponent<Damageable>();
     }
 
     private void Update()
     {
         HasTarget = attackZone.detectionColliders.Count > 0;
-    }
+    }   
 
     private void FixedUpdate()
     {
@@ -79,13 +81,16 @@ public class Knight : MonoBehaviour
         {
             FlipDirection();
         }
-        if(CanMove)
+        if (!damageable.LockVelocity)
         {
-            rb.velocity = new Vector2(walkSpeed * _walkDirectionVector.x, rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = new Vector2(0,rb.velocity.y);
+            if (CanMove)
+            {
+                rb.velocity = new Vector2(walkSpeed * _walkDirectionVector.x, rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
         }
      
     }
@@ -100,5 +105,10 @@ public class Knight : MonoBehaviour
         {
             WalkDirection = WalkableDirection.Left;
         }
+    }
+
+    public void OnHit(float damage,Vector2 knockback)
+    {
+        rb.velocity = new Vector2(rb.velocity.x + knockback.x, rb.velocity.y + knockback.y);
     }
 }

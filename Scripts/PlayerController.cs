@@ -90,10 +90,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public bool IsAlive
+    {
+        get { return animator.GetBool(CONSTANT.isAlive); }
+    }
+
+
     private Vector2 _moveInput;
     Rigidbody2D rb;
     Animator animator;
     TouchingDirections touchingDirections;
+    Damageable damageable;
     
 
     private void Awake()
@@ -101,6 +108,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         touchingDirections = GetComponent<TouchingDirections>();
+        damageable = GetComponent<Damageable>();
     }
 
     private void Start()
@@ -110,7 +118,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(_moveInput.x * CurrentMoveSpeed * Time.fixedDeltaTime, rb.velocity.y);
+        if(!damageable.LockVelocity)
+        {
+            rb.velocity = new Vector2(_moveInput.x * CurrentMoveSpeed * Time.fixedDeltaTime, rb.velocity.y);
+        }
         animator.SetFloat(CONSTANT.yVelocity, rb.velocity.y);
     }
 
@@ -118,9 +129,16 @@ public class PlayerController : MonoBehaviour
     {
         _moveInput = context.ReadValue<Vector2>();
 
-        IsMoving = _moveInput != Vector2.zero;
+        if (IsAlive)
+        {
+            IsMoving = _moveInput != Vector2.zero;
 
-        SetFacingDirection(_moveInput);
+            SetFacingDirection(_moveInput);
+        }
+        else
+        {
+            IsMoving = false;
+        }
 
     }
 
@@ -163,5 +181,10 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetTrigger(CONSTANT.attack);
         }
+    }
+
+    public void OnHit(float damage,Vector2 knockback)
+    {
+        rb.velocity = new Vector2(rb.velocity.x + knockback.x,rb.velocity.y + knockback.y); 
     }
 }
