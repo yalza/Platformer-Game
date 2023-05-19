@@ -88,9 +88,19 @@ public class Damageable : MonoBehaviour
             Health -= damage;
             _isInvincible = true;
             damageableHit?.Invoke(damage, knockback);
+            CharacterEvents.characterDamaged(gameObject, damage);
             animator.SetTrigger(CONSTANT.hit);
             StartCoroutine(InvincibleTime(_invincibleTime));
-            Debug.Log(this.gameObject.name + Health);
+            
+        }
+    }
+
+    public void Heal(float healthRestore)
+    {
+        if(IsAlive)
+        {
+            Health = Mathf.Min(Health + healthRestore,MaxHealth);
+            CharacterEvents.characterHealed(gameObject, healthRestore);
         }
     }
 

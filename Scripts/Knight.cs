@@ -9,6 +9,7 @@ public class Knight : MonoBehaviour
     private Vector2 _walkDirectionVector = Vector2.right;
 
     public DetectionZone attackZone;
+    public DetectionZone chiffZone;
 
     Rigidbody2D rb;
     TouchingDirections touchingDirections;
@@ -62,6 +63,19 @@ public class Knight : MonoBehaviour
             return animator.GetBool(CONSTANT.canMove);
         }
     }
+
+    public float AttackCooldown
+    {
+        get
+        {
+            return animator.GetFloat(CONSTANT.attackCooldown);
+        }
+        private set
+        {
+            animator.SetFloat(CONSTANT.attackCooldown, Mathf.Max(value,0));
+        }
+    }
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -73,11 +87,15 @@ public class Knight : MonoBehaviour
     private void Update()
     {
         HasTarget = attackZone.detectionColliders.Count > 0;
+        if (AttackCooldown > 0)
+        {
+            AttackCooldown -= Time.deltaTime;
+        }
     }   
 
     private void FixedUpdate()
     {
-        if(touchingDirections.IsGrounded && touchingDirections.IsOnWall)
+        if(touchingDirections.IsGrounded && touchingDirections.IsOnWall || chiffZone.detectionColliders.Count == 0)
         {
             FlipDirection();
         }
