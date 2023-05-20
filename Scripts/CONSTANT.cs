@@ -15,5 +15,6 @@
     internal static string hit = "hit";
     internal static string lockVelocity = "lockVelocity";
     internal static string attackCooldown = "attackCooldown";
+    internal static string rangedAttack = "rangedAttack";
 }
 

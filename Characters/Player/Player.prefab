@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackDamage: 20
-  knockback: {x: 0, y: 2}
+  knockback: {x: 2, y: 0}
 --- !u!1 &3746866979754723553
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,6 +124,7 @@ Transform:
   - {fileID: 6135634915551559758}
   - {fileID: 7141436528490804027}
   - {fileID: 5896025303289347289}
+  - {fileID: 1846363201775545648}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -333,6 +334,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 11898e47-2098-4692-b455-a0d24d409c16
     m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2406557757082285107}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnRangedAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 02758fbb-82ce-4a62-94bb-5c664cf019aa
+    m_ActionName: Player/RangedAttack[/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -444,6 +461,52 @@ MonoBehaviour:
         m_CallState: 2
   _invincibleTime: 0.5
   _maxHealth: 100
+--- !u!1 &5037831047754512846
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1846363201775545648}
+  - component: {fileID: 6876239628773326514}
+  m_Layer: 0
+  m_Name: ProjectileLauncher
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1846363201775545648
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5037831047754512846}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.765, y: -0.145, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3746866979754723556}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6876239628773326514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5037831047754512846}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33d4a997feaf13549ae0721044224c8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 6148862692926436759, guid: ea26169c122f8f94b8b5f429fb9a4c77, type: 3}
+  projectileLauncherPos: {fileID: 1846363201775545648}
 --- !u!1 &5609363447714265919
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,7 +586,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackDamage: 15
-  knockback: {x: 3, y: 2}
+  knockback: {x: 2, y: 2}
 --- !u!1 &6412817732476388782
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,4 +672,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackDamage: 10
-  knockback: {x: 0, y: 2}
+  knockback: {x: 2, y: 0}
