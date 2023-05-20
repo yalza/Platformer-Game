@@ -7,9 +7,9 @@ public class PlayerController : MonoBehaviour
 {
 
     private float _walkSpeed = 150f;
-    private float _airSpeed = 100f;
+    private float _airSpeed = 200f;
     private float _runSpeed = 250f;
-    private float jumpImpulse = 8f;
+    private float jumpImpulse = 10f;
     public float CurrentMoveSpeed
     {
         get

@@ -21,7 +21,7 @@ public class Damageable : MonoBehaviour
         }
     }
 
-    private float _health = 100;
+    [SerializeField] private float _health = 100;
     public float Health
     {
         get { return _health; }
@@ -35,7 +35,7 @@ public class Damageable : MonoBehaviour
         }
     }
 
-    private bool _isAlive = true;
+    [SerializeField] private bool _isAlive = true;
     public bool IsAlive
     {
         get { return _isAlive; }

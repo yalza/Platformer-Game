@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private float _arrowDamage;
+    [SerializeField] public float _lifeTime = 3f;
+    [SerializeField] private float _arrowDamage = 10f;
     [SerializeField] private float _moveSpeed = 10f;
     [SerializeField] private Vector2 _knockback = new Vector2(1, 1);
 
@@ -13,6 +14,11 @@ public class Projectile : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
+        
     }
 
     private void Update()
@@ -29,8 +35,10 @@ public class Projectile : MonoBehaviour
             if (damageable != null)
             {
                 damageable.Hit(_arrowDamage, delivedKnockback);
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
     }
+
+    
 }

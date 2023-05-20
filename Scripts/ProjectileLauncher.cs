@@ -15,7 +15,18 @@ public class ProjectileLauncher : MonoBehaviour
 
     public void FireProjectile()
     {
-        GameObject projectile = Instantiate(projectilePrefab, projectileLauncherPos.position, projectilePrefab.transform.rotation);
+        GameObject projectile = ObjectPooling.Instance.GetGameObject(projectilePrefab);
+        projectile.SetActive(true);
         projectile.transform.localScale = new Vector3(transform.parent.localScale.x, 1, 1);
+        projectile.transform.position = projectileLauncherPos.position;
+        projectile.transform.rotation = projectilePrefab.transform.rotation;
+        StartCoroutine(DisActive(projectile));
+    }
+
+    private IEnumerator DisActive(GameObject projectile)
+    {
+        yield return new WaitForSeconds(projectile.GetComponent<Projectile>()._lifeTime);
+        projectile.SetActive(false);
+        Debug.Log(22222222);
     }
 }
