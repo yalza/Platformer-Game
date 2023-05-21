@@ -6,8 +6,6 @@ public class ProjectileLauncher : MonoBehaviour
 {
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] Transform projectileLauncherPos;
-
-
     private void OnEnable()
     {
         FireProjectile();
@@ -27,6 +25,5 @@ public class ProjectileLauncher : MonoBehaviour
     {
         yield return new WaitForSeconds(projectile.GetComponent<Projectile>()._lifeTime);
         projectile.SetActive(false);
-        Debug.Log(22222222);
     }
 }
